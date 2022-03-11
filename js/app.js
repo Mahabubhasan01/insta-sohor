@@ -7,17 +7,18 @@ const getLikedPosts = () => {
     return posts.filter((post) => likedPostsId.includes(post.id));
     
 };
-
+// console.log(getLikedPosts);
 const getReportedPosts = () => {
     return posts.filter((post) => reportedPostsId.includes(post.id));
 };
 
 const isLiked = (id) => {
+  // console.log(id);
     return likedPostsId?.length && !!likedPostsId.includes(id);
 };
 
 const addToLiked = (id) => {
-    likedPostsId.plus(id); 
+    likedPostsId.push(id); 
     showPosts(posts);
 };
 
@@ -67,8 +68,7 @@ const createPost = (post) => {
                   <a
                     href="https://github.com/ProgrammingHero1"
                     target="_blank"
-                    class="post__avatar"
-                  >
+                    class="post__avatar">
                     <img src="${image}" alt="User Picture" />
                   </a>
                   <a href="#" class="post__user">phero</a>
@@ -91,7 +91,7 @@ const createPost = (post) => {
 
               <div class="post__footer">
                 <div class="post__buttons">
-                  <button class="post__button" onclick="addToLiked('${post.id}')">
+                  <button class="post__button" onclick="addToLiked(${post.id})">
                   <i class="fa-solid fa-heart ${isLiked(post.id) && "text-danger"}"></i>
                     
                   </button>
@@ -102,15 +102,12 @@ const createPost = (post) => {
 
                   <div class="post__indicators"></div>
 
-                  <button class="post__button post__button--align-right" onclick="reportPost(${
-                      post.id
-                  })">
+                  <button class="post__button post__button--align-right" 
+                    onclick="reportPost(${post.id})">
                     <i class="fa-solid fa-ban"></i>
                   </button>
                 </div>
-
                 <div class="post__content">${displayContent(post.description)}</div>
-
                 <div class="post__infos">
                   <div class="post__likes">
                     <a href="#" class="post__likes-avatar">
@@ -150,11 +147,10 @@ const showPosts = (posts) => {
 };
 
 const displayLikedPosts = () => {
-  document.getElementById( "liked" ).innerHTML=''
+  document.getElementById( "liked" ).innerHTML='';
     const likedPosts = getLikedPosts();
     
     likedPosts.forEach((post) => {
-      console.log(post);
         const div = createPost(post);
         document.getElementById( "liked" ).appendChild(div);
     });
